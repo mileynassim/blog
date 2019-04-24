@@ -7,18 +7,20 @@ export default class Profile extends Component {
             posts: []
 
         };
-    }
-    componentWillMount() {
         axios.get('/list')
             .then(res => {
                 this.setState({
                     posts: res.data
                 })
-                console.log(this.state.posts, "=>posts");
-
             })
+    }
+    componentWillMount() {
+
+        console.log(this.state.posts, "=>posts");
 
     }
+
+
 
     changeTitre = (e) => {
         this.setState({
@@ -43,7 +45,7 @@ export default class Profile extends Component {
                 this.setState({
                     posts: res.data
                 })
-                console.log(this.state.posts, "=>posts");
+                console.log(this.state.posts, "=>posts")
 
             })
     }

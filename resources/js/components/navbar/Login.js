@@ -23,24 +23,32 @@ class Login extends Component {
         })
     }
     handleSubmit = (e) => {
-
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
         e.preventDefault();
 
-        axios.post('/login', this.state)
-            .then(res => {
-                console.log(res.data);
+        if ((email.value.length) || (password.value.length)) {
+            axios.post('/login', this.state)
+                .then(res => {
+                    console.log(res.data);
 
-                if (res.data.success) {
-                    this.props.history.push('/user/' + res.data.user_id);
+                    if (res.data.success) {
+                        this.props.history.push('/user/' + res.data.user_id);
 
 
 
-                }
-                else {
-                    swal("email and password don't match!", "Try again!", "error");
+                    }
+                    else {
+                        swal("email and password don't match!", "Try again!", "error");
 
-                }
-            })
+                    }
+                })
+        }
+        else {
+            swal("Enter Email or Password!", "Try again!", "error");
+
+        }
+
     }
     render() {
         return (

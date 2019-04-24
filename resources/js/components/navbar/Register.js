@@ -44,7 +44,7 @@ class Register extends Component {
 
         e.preventDefault();
         console.log(name.value.length)
-        if ((name.value.length < 3) || (password.value.length < 8)) {
+        if ((name.value.length < 3) || (password.value.length < 6)) {
             swal("Please Do not leave blank!", "!", "warning");
 
         }

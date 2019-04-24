@@ -24,7 +24,7 @@ class posts_user extends Controller
 
     public function index() {
         
-        $pt=Post::all();
+        $pt=Post::where('user_id',Auth::user()->id)->get();
 
         return response()->json($pt);
 
