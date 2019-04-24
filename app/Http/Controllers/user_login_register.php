@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class user_login_register extends Controller
 {
 
+
+   public function index(){
+       return view('welcome');
+   } 
    public function show($id) {
         $user=User::find($id);
         return response()->json($user);

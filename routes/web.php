@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
-
+}); */
+Route::get('/','user_login_register@index');
 Route::post('/','user_login_register@register');
 Route::post('/login','user_login_register@postLogin');
 Route::get('/user/{id}','user_login_register@show');
