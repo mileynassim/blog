@@ -20,3 +20,4 @@ Route::post('/login','user_login_register@postLogin');
 Route::get('/user/{id}','user_login_register@show');
 Route::post('/post','posts_user@create');
 Route::get('/list','posts_user@index');
+Route::post('/search','user_page@search');

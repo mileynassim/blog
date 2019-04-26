@@ -65807,7 +65807,10 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
         path: "/",
         component: _page_Defaultcontainer__WEBPACK_IMPORTED_MODULE_3__["default"]
-      })));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
+        path: "/user/profile",
+        component: _user_Profile__WEBPACK_IMPORTED_MODULE_4__["default"]
+      }));
     }
   }]);
 
@@ -66269,15 +66272,11 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (e) {
       e.preventDefault();
-      axios.post('/post', _this.state).then(function (res) {
-        console.log(res.data);
-      });
+      axios.post('/post', _this.state);
       axios.get('/list').then(function (res) {
         _this.setState({
           posts: res.data
         });
-
-        console.log(_this.state.posts, "=>posts");
       });
     });
 
@@ -66293,11 +66292,6 @@ function (_Component) {
   }
 
   _createClass(Profile, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      console.log(this.state.posts, "=>posts");
-    }
-  }, {
     key: "render",
     value: function render() {
       var listPosts = this.state.posts.map(function (list) {
@@ -66336,13 +66330,15 @@ function (_Component) {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "title"
-      }, "Add post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        dir: "auto",
         type: "text",
         className: "form-control",
         id: "title",
         placeholder: "Title",
         onChange: this.changeTitre
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        dir: "auto",
         className: "form-control",
         id: "textarea",
         rows: "3",
@@ -66387,13 +66383,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -66411,8 +66409,36 @@ function (_Component) {
     _classCallCheck(this, User);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(User).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "handlChange", function (e) {
+      _this.setState({
+        search: e.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "submitSearch", function (e) {
+      var search = _this.state.search;
+      e.preventDefault();
+      axios.post('/search', {
+        search: search
+      }).then(function (res) {
+        console.log(res.data.succes);
+
+        if (res.data.succes) {
+          _this.setState({
+            search_resultat: res.data.list_search
+          });
+        } else {
+          _this.setState({
+            search_resultat: ""
+          });
+        }
+      });
+    });
+
     _this.state = {
       user: [],
+      search_resultat: [],
       search: ""
     };
     return _this;
@@ -66433,7 +66459,32 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+      var listSearch = this.state.search_resultat.length && this.props.match.url === "/user/".concat(this.state.user.id) ? this.state.search_resultat.map(function (search) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: search.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "row"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-2"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-8"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          "class": "card"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: _img_avatar_png__WEBPACK_IMPORTED_MODULE_1___default.a,
+          "class": "card-img-top",
+          style: {
+            width: 70
+          }
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          "class": "card-body"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          "class": "card-text"
+        }, search.email)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-2"
+        })));
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "navbar navbar-expand-lg navbar-dark bg-dark"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "navbar-brand",
@@ -66457,7 +66508,7 @@ function (_Component) {
         to: "/user/".concat(this.state.user.id),
         className: "nav-item nav-link active"
       }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/user/".concat(this.state.user.id, "/profile"),
+        to: "/user/profile",
         className: "nav-item nav-link active"
       }, "Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "form-inline",
@@ -66465,8 +66516,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control mr-sm-2",
         type: "search",
-        placeholder: "Search",
-        "aria-label": "Search"
+        placeholder: "Search with Name",
+        name: "search",
+        "aria-label": "Search",
+        onChange: this.handlChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-outline-success my-2 my-sm-0",
         type: "submit"
@@ -66491,10 +66544,7 @@ function (_Component) {
           width: 40,
           height: 40
         }
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/user/:id/profile",
-        component: _Profile__WEBPACK_IMPORTED_MODULE_3__["default"]
-      })));
+      })))), listSearch);
     }
   }]);
 

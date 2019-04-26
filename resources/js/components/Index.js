@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Logincontainer from './page/Logincontainer'
 import Defaultcontainer from './page/Defaultcontainer'
-import Profile from './user/Profile'
+import Profile from "./user/Profile"
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import swal from 'sweetalert';
 
@@ -16,6 +16,8 @@ export default class Index extends Component {
                     <Route path="/user/:id" component={Logincontainer} />
                     <Route path="/" component={Defaultcontainer} />
                 </Switch>
+                <Route path="/user/profile" component={Profile} />
+
             </Router>
         );
     }

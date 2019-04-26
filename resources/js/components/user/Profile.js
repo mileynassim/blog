@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 export default class Profile extends Component {
     constructor(props) {
         super(props);
@@ -14,11 +13,7 @@ export default class Profile extends Component {
                 })
             })
     }
-    componentWillMount() {
 
-        console.log(this.state.posts, "=>posts");
-
-    }
 
 
 
@@ -37,16 +32,12 @@ export default class Profile extends Component {
 
         e.preventDefault();
         axios.post('/post', this.state)
-            .then(res => {
-                console.log(res.data)
-            })
+
         axios.get('/list')
             .then(res => {
                 this.setState({
                     posts: res.data
                 })
-                console.log(this.state.posts, "=>posts")
-
             })
     }
 
@@ -85,10 +76,10 @@ export default class Profile extends Component {
                             <div className="col-6">
 
                                 <div className="form-group">
-                                    <label htmlFor="title">Add post</label>
-                                    <input type="text" className="form-control" id="title" placeholder="Title" onChange={this.changeTitre} />
+                                    <label htmlFor="title"></label>
+                                    <input dir="auto" type="text" className="form-control" id="title" placeholder="Title" onChange={this.changeTitre} />
                                 </div>
-                                <textarea className="form-control" id="textarea" rows="3" onChange={this.changePost}></textarea>
+                                <textarea dir="auto" className="form-control" id="textarea" rows="3" onChange={this.changePost}></textarea>
                                 <button type="submit" className="btn btn-primary mb-2">Publish</button>
                             </div>
                         </div>
